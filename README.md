@@ -22,9 +22,10 @@ For education purposes only.
 
 ---
 
-## #After you finish
+## After you finish
 1. Test with multiple URLs  
 2. Commit with:
 ```bash
 git commit -m "Add rule-based malicious URL detection tool"
 ```
+
