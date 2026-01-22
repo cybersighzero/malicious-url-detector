@@ -29,3 +29,12 @@ For education purposes only.
 git commit -m "Add rule-based malicious URL detection tool"
 ```
 
+---
+
+
+## Created By
+
+**Pratima Narang**  
+[@cybersighzero](https://github.com/cybersighzero)
+
+Feedback or ideas? Drop an [issue](https://github.com/cybersighzero/WeakSauce/issues) or submit a pull request!
