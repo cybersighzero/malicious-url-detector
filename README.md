@@ -1,19 +1,29 @@
 # Malicious URL Detector
 
-A rule-based cybersecurity tool that analyzes URLs and flags potentially malicious patterns using common threat indicators.
+A rule-based cybersecurity tool that analyzes URLs and flags potentially malicious patterns using common threat indicators and redirect analysis.
+
+---
 
 ## Features
+
 - Detects IP-based URLs
 - Flags excessive subdomains
 - Identifies suspicious TLDs
 - Detects URL redirection tricks
-- Resolves redirect chains and compares destinations
-- Weighted scoring with risk levels (safe/suspicious/high risk)
+- Resolves redirect chains
+- Weighted risk scoring system
+- Risk classification:
+  - Safe
+  - Suspicious
+  - High Risk
 
 ---
 
 ## Setup
-Create and activate a virtual environment, then install dependencies:
+
+Create and activate a virtual environment, then install dependencies.
+
+### Create Virtual Environment
 
 ```bash
 python -m venv .venv
@@ -24,6 +34,7 @@ Windows PowerShell:
 .\.venv\Scripts\Activate.ps1
 ```
 
+Install Dependencies:
 ```bash
 pip install -r requirements.txt
 ```
@@ -31,23 +42,24 @@ pip install -r requirements.txt
 ---
 
 ## Usage
+Run the Detector:
 ```bash
 python detector.py
 ```
+Then enter a URL when prompted.
 
 ---
+
+## Example Risk Levels
+
+| Score | Risk Level |
+|---|---|
+| 0–29 | Safe |
+| 30–59 | Suspicious |
+| 60+ | High Risk |
 
 ## Disclaimer
 For education purposes only.
-
----
-
-## After you finish
-1. Test with multiple URLs  
-2. Commit with:
-```bash
-git commit -m "Add rule-based malicious URL detection tool"
-```
 
 ---
 
