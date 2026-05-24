@@ -7,6 +7,26 @@ A rule-based cybersecurity tool that analyzes URLs and flags potentially malicio
 - Flags excessive subdomains
 - Identifies suspicious TLDs
 - Detects URL redirection tricks
+- Resolves redirect chains and compares destinations
+- Weighted scoring with risk levels (safe/suspicious/high risk)
+
+---
+
+## Setup
+Create and activate a virtual environment, then install dependencies:
+
+```bash
+python -m venv .venv
+```
+
+Windows PowerShell:
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+```bash
+pip install -r requirements.txt
+```
 
 ---
 
