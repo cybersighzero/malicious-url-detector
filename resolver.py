@@ -16,7 +16,7 @@ DEFAULT_TIMEOUT = 8
 MAX_REDIRECTS = 10
 
 
-def _normalize_url(url):
+def normalize_url(url):
     url = url.strip()
     if not url:
         return url
