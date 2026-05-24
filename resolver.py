@@ -36,39 +36,39 @@ def resolve_redirects(url):
          ssl_warning = ""
          verify = True
 
-    while True:
-             try:
-                 with session.get(
-                     normalized_url,
-                     allow_redirects=True,
-                     timeout=DEFAULT_TIMEOUT,
-                     verify=verify,
-                 ) as response:
-                     hops = [item.url for item in response.history]
-                     hops.append(response.url)
-                     
-                     result = {"hops": hops, "final_url": response.url}
-                     if ssl_warning:
-                         result["warning"] = ssl_warning
-                     return result
-             except SSLError:
-                 if verify:
-                     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-                     verify = False
-                     ssl_warning = "SSL verification failed; proceeding without verification"
-                     continue
-                 return {"error": "SSL error", "hops": [], "final_url": ""}
-             except (MissingSchema, InvalidURL):
-                 return {"error": "Invalid URL", "hops": [], "final_url": ""}
-             except Timeout:
-                 return {"error": "Request timed out", "hops": [], "final_url": ""}
-             except TooManyRedirects:
-                 return {
-                     "error": f"Too many redirects (>{MAX_REDIRECTS})",
-                     "hops": [],
-                     "final_url": "",
-                 }
-             except ConnectionError:
-                 return {"error": "Connection error", "hops": [], "final_url": ""}
-             except RequestException as exc:
-                 return {"error": f"Request failed: {exc}", "hops": [], "final_url": ""}
+        while True:
+                 try:
+                     with session.get(
+                         normalized_url,
+                         allow_redirects=True,
+                         timeout=DEFAULT_TIMEOUT,
+                         verify=verify,
+                     ) as response:
+                         hops = [item.url for item in response.history]
+                         hops.append(response.url)
+                         
+                         result = {"hops": hops, "final_url": response.url}
+                         if ssl_warning:
+                             result["warning"] = ssl_warning
+                         return result
+                 except SSLError:
+                     if verify:
+                         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+                         verify = False
+                         ssl_warning = "SSL verification failed; proceeding without verification"
+                         continue
+                     return {"error": "SSL error", "hops": [], "final_url": ""}
+                 except (MissingSchema, InvalidURL):
+                     return {"error": "Invalid URL", "hops": [], "final_url": ""}
+                 except Timeout:
+                     return {"error": "Request timed out", "hops": [], "final_url": ""}
+                 except TooManyRedirects:
+                     return {
+                         "error": f"Too many redirects (>{MAX_REDIRECTS})",
+                         "hops": [],
+                         "final_url": "",
+                     }
+                 except ConnectionError:
+                     return {"error": "Connection error", "hops": [], "final_url": ""}
+                 except RequestException as exc:
+                     return {"error": f"Request failed: {exc}", "hops": [], "final_url": ""}
