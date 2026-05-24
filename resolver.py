@@ -1,7 +1,6 @@
 from urllib.parse import urlparse
 
 import requests
-import urllib3
 from requests.exceptions import (
     ConnectionError,
     InvalidURL,
@@ -27,14 +26,13 @@ def normalize_url(url):
 
 
 def resolve_redirects(url):
-    normalized_url = _normalize_url(url)
+    normalized_url = normalize_url(url)
+    
     if not normalized_url:
         return {"error": "Empty URL", "hops": [], "final_url": ""}
 
     with requests.Session() as session:
          session.max_redirects = MAX_REDIRECTS
-         ssl_warning = ""
-         verify = True
 
         while True:
                  try:
@@ -42,22 +40,20 @@ def resolve_redirects(url):
                          normalized_url,
                          allow_redirects=True,
                          timeout=DEFAULT_TIMEOUT,
-                         verify=verify,
+                         verify=True,
                      ) as response:
                          hops = [item.url for item in response.history]
                          hops.append(response.url)
                          
                          result = {"hops": hops, "final_url": response.url}
-                         if ssl_warning:
-                             result["warning"] = ssl_warning
-                         return result
-                 except SSLError:
-                     if verify:
-                         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-                         verify = False
-                         ssl_warning = "SSL verification failed; proceeding without verification"
-                         continue
-                     return {"error": "SSL error", "hops": [], "final_url": ""}
+                         
+                except SSLError:
+                    return {
+                        "error": "SSL verification failed",
+                        "hops": [],
+                        "final_url": "",
+                    }
+
                  except (MissingSchema, InvalidURL):
                      return {"error": "Invalid URL", "hops": [], "final_url": ""}
                  except Timeout:
