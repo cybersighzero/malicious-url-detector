@@ -1,6 +1,4 @@
-from urllib.parse import urlparse
-
-from resolver import resolve_redirects
+from resolver import resolve_redirects, normalize_url
 from rules import analyze_url, risk_from_score, score_from_reasons
 
 
@@ -27,8 +25,7 @@ def _merge_reasons(*reason_lists):
 
 def main():
     url = input("Enter URL to analyze: ").strip()
-    parsed_input = urlparse(url)
-    normalized_url = url if parsed_input.scheme else f"https://{url}"
+    normalized_url = normalize_url(url)
 
     redirect_result = resolve_redirects(normalized_url)
     if "error" in redirect_result:
