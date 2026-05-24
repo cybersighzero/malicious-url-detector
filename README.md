@@ -58,11 +58,12 @@ Then enter a URL when prompted.
 | 30–59 | Suspicious |
 | 60+ | High Risk |
 
+---
+
 ## Disclaimer
 For education purposes only.
 
 ---
-
 
 ## Created By
 
